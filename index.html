@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Application</title>
+    <title>Image Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #image_container img {
+            max-width: 90%;
+            height: auto;
+        }
+    </style>
+
+    <!-- Include the ml5 library -->
+    <script src="https://unpkg.com/ml5@0.6.0/dist/ml5.min.js"></script>
 </head>
 <body>
-    <h1>Welcome to My Application</h1>
+    <h1>Image Classifier</h1>
+    <input type="file" id="file_input" onchange="handleFile(this)">
+    <div id="image_container"></div>
+    <pre id="results"></pre>
 
-    <!-- Include your index.js file -->
+    <!-- Include your JavaScript file -->
     <script src="index.js"></script>
 </body>
 </html>

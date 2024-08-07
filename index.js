@@ -1,14 +1,10 @@
 'use strict';
 
-// Global variables for classifier URLs
-var maleFemaleModelURL = 'https://teachablemachine.withgoogle.com/models/WcPZrRo4l/';
-var glassesModelURL = 'https://teachablemachine.withgoogle.com/models/w9NprxFXq/';
-var ageModelURL = 'https://teachablemachine.withgoogle.com/models/ZRCl0iJZF/';
+// Global variable for classifier URL
+var hazardModelURL = 'https://teachablemachine.withgoogle.com/models/IZ-QoH4aP/';
 
-// Classifier variables
-var maleFemaleClassifier;
-var glassesClassifier;
-var ageClassifier;
+// Classifier variable
+var hazardClassifier;
 
 // Classification thresholds
 const thresholds = {
@@ -18,22 +14,16 @@ const thresholds = {
 };
 
 function preload() {
-    maleFemaleClassifier = ml5.imageClassifier(maleFemaleModelURL + 'model.json', modelLoaded);
-    glassesClassifier = ml5.imageClassifier(glassesModelURL + 'model.json', modelLoaded);
-    ageClassifier = ml5.imageClassifier(ageModelURL + 'model.json', modelLoaded);
+    hazardClassifier = ml5.imageClassifier(hazardModelURL + 'model.json', modelLoaded);
 }
 
 function modelLoaded(error) {
     if (error) {
         console.error('Model loading error:', error);
-        alert('Failed to load some models. Please reload the page.');
+        alert('Failed to load the model. Please reload the page.');
     } else {
         console.log('Model loaded successfully');
     }
-}
-
-function setup() {
-    noCanvas(); // Since we are not using a video feed, no canvas is required.
 }
 
 function handleFile(input) {
@@ -58,30 +48,16 @@ function handleFile(input) {
 
 function classifyImage(img) {
     document.getElementById('results').innerText = "Classifying...";
-    maleFemaleClassifier.classify(img, (error, results) => {
+    hazardClassifier.classify(img, (error, results) => {
         if (error) {
-            handleError('gender', error);
+            handleError('hazard', error);
         } else {
-            displayResult('gender', results);
-        }
-    });
-    glassesClassifier.classify(img, (error, results) => {
-        if (error) {
-            handleError('glasses', error);
-        } else {
-            displayResult('glasses', results, true);
-        }
-    });
-    ageClassifier.classify(img, (error, results) => {
-        if (error) {
-            handleError('age', error);
-        } else {
-            displayResult('age', results);
+            displayResult('hazard', results);
         }
     });
 }
 
-function displayResult(category, results, isGlasses = false) {
+function displayResult(category, results) {
     if (results) {
         const result = results[0]; // Assuming results are sorted by confidence
         const confidence = (result.confidence * 100).toFixed(0);
@@ -89,10 +65,7 @@ function displayResult(category, results, isGlasses = false) {
         if (confidence >= thresholds.is) interpretation = 'is';
         else if (confidence >= thresholds.isLikely) interpretation = 'is likely';
 
-        let resultText = `Subject ${interpretation} ${result.label} (${confidence}%)`;
-        if (isGlasses) {
-            resultText = `Subject ${interpretation} wearing ${result.label} (${confidence}%)`;
-        }
+        let resultText = `Subject ${interpretation} a ${result.label} hazard (${confidence}%)`;
         document.getElementById('results').innerText += `${resultText}\n`;
     }
 }
