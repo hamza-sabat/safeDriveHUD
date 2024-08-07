@@ -9,8 +9,14 @@ const thresholds = {
     is: 80
 };
 
-function preload() {
-    hazardClassifier = ml5.imageClassifier(hazardModelURL + 'model.json', modelLoaded);
+async function preload() {
+    try {
+        hazardClassifier = await ml5.imageClassifier(hazardModelURL + 'model.json');
+        console.log('Model loaded successfully');
+    } catch (error) {
+        console.error('Model loading error:', error);
+        alert('Failed to load the model. Please reload the page.');
+    }
 }
 
 function modelLoaded(error) {
