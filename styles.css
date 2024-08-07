@@ -1,0 +1,33 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    padding: 20px;
+    background-color: #f4f4f4;
+    margin: 0;
+    color: #333;
+}
+h1 {
+    color: #444;
+    text-align: center;
+}
+#file_input {
+    display: block;
+    margin: 20px auto;
+    font-size: 16px;
+    padding: 10px;
+}
+#image_container {
+    text-align: center;
+    padding: 20px;
+}
+#image_container img {
+    max-width: 90%;
+    height: auto;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+#results {
+    text-align: center;
+    font-size: 16px;
+    padding: 10px;
+    white-space: pre-wrap;
+    margin-top: 20px;
+}
