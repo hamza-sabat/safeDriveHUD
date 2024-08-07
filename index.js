@@ -1,16 +1,12 @@
 'use strict';
 
-// Global variable for classifier URL
 var hazardModelURL = 'https://teachablemachine.withgoogle.com/models/IZ-QoH4aP/';
-
-// Classifier variable
 var hazardClassifier;
 
-// Classification thresholds
 const thresholds = {
-    couldBe: 0.0, // under 60%
-    isLikely: 60, // 60% to 80%
-    is: 80        // over 80%
+    couldBe: 0.0,
+    isLikely: 60,
+    is: 80
 };
 
 function preload() {
@@ -36,6 +32,7 @@ function handleFile(input) {
         img.onload = function() {
             imageContainer.appendChild(img);
             classifyImage(img);
+            document.getElementById('overlay').style.display = 'block';
         };
         img.onerror = function() {
             alert('Error loading image. Please choose another file.');
@@ -52,6 +49,7 @@ function classifyImage(img) {
         if (error) {
             handleError('hazard', error);
         } else {
+            document.getElementById('results').innerText = ""; // Clear the "Classifying..." text
             displayResult('hazard', results);
         }
     });
@@ -59,13 +57,13 @@ function classifyImage(img) {
 
 function displayResult(category, results) {
     if (results) {
-        const result = results[0]; // Assuming results are sorted by confidence
+        const result = results[0];
         const confidence = (result.confidence * 100).toFixed(0);
         let interpretation = 'could be';
         if (confidence >= thresholds.is) interpretation = 'is';
         else if (confidence >= thresholds.isLikely) interpretation = 'is likely';
 
-        let resultText = `Subject ${interpretation} a ${result.label} hazard (${confidence}%)`;
+        let resultText = `Subject ${interpretation} a ${result.label} (${confidence}%)`;
         document.getElementById('results').innerText += `${resultText}\n`;
     }
 }
