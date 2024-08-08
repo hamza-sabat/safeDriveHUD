@@ -69,3 +69,13 @@ function handleError(category, error) {
     console.error(`${category} classification error:`, error);
     document.getElementById('results').innerText = `Error classifying ${category}. Please try again.`;
 }
+
+module.exports = {
+    loadModel,
+    handleFile,
+    displayImage,
+    classifyImage,
+    displayResult,
+    getInterpretation,
+    handleError
+};

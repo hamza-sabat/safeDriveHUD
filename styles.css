@@ -1,5 +1,5 @@
  /* Basic reset to ensure consistency across browsers */
-* {
+ * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -84,4 +84,3 @@ img {
         box-sizing: border-box; /* Ensures padding doesn't affect width */
     }
 }
-
