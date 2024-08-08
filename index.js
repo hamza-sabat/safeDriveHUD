@@ -19,8 +19,10 @@ async function loadModel(url) {
 
 function handleFile(input) {
     const file = input.files[0];
-    if (file) {
+    if (file && file.type.startsWith('image/')) {
         displayImage(file);
+    } else {
+        alert('Error loading Image. Please choose another file.');
     }
 }
 
@@ -34,7 +36,7 @@ function displayImage(file) {
         classifyImage(img);
     };
     img.onerror = () => {
-        alert('Error loading image. Please choose another file.');
+        alert('Error loading Image. Please choose another file.');
     };
     img.src = URL.createObjectURL(file);
     img.style.maxWidth = '90%';
