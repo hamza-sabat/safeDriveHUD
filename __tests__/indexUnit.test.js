@@ -1,4 +1,4 @@
-const { loadModel, handleFile, displayImage, classifyImage, displayResult, getInterpretation, handleError } = require('../index.js');
+const { loadModel, handleFile, displayImage, classifyImage, displayResult, getInterpretation, handleError } = require('../public/index.js');
 jest.mock('ml5');
 
 // Mocking URL.createObjectURL
@@ -26,14 +26,14 @@ describe('Testing index.js functions', () => {
   });
 
     test('handleFile should call displayImage with the selected file', () => {
-        const displayImageSpy = jest.spyOn(require('../index.js'), 'displayImage'); // Spy on displayImage
+        const displayImageSpy = jest.spyOn(require('../public/index.js'), 'displayImage'); // Spy on displayImage
         handleFile(mockFileInput);
         expect(displayImageSpy).toHaveBeenCalledWith(mockFileInput.files[0]);
         displayImageSpy.mockRestore(); // Restore the original implementation
     });
 
     test('displayImage should load and classify image', () => {
-        const classifyImageSpy = jest.spyOn(require('../index.js'), 'classifyImage'); // Spy on classifyImage
+        const classifyImageSpy = jest.spyOn(require('../public/index.js'), 'classifyImage'); // Spy on classifyImage
         displayImage(new Blob());
         mockImage.onload();
         expect(mockImageContainer.appendChild).toHaveBeenCalledWith(mockImage);
@@ -42,7 +42,7 @@ describe('Testing index.js functions', () => {
     });
 
     test('classifyImage should classify image and display result', async () => {
-        const displayResultSpy = jest.spyOn(require('../index.js'), 'displayResult'); // Spy on displayResult
+        const displayResultSpy = jest.spyOn(require('../public/index.js'), 'displayResult'); // Spy on displayResult
         
         // Simulate the classifier behavior
         ml5.imageClassifier.mockResolvedValueOnce({
