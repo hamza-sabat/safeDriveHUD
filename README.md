@@ -20,6 +20,7 @@ This project is an image classifier that uses the ml5.js library for machine lea
 This project uses the following dependencies:
 
 - [ml5.js](https://ml5js.org/): A JavaScript library for machine learning.
+- For testing, include test image and edit your file path to the image. search for png and replace all file paths to test image with own file path. 
 
 ## Contributing
 
